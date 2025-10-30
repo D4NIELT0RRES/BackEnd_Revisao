@@ -15,8 +15,8 @@ const selectAllEstoque = async function () {
                             e.livro_id, 
                             l.titulo, 
                             e.quantidade_atual 
-                            FROM estoque e 
-                            INNER JOIN livros l ON e.livro_id = l.id
+                            FROM tbl_estoque e 
+                            INNER JOIN tbl_livros l ON e.livro_id = l.id
                             WHERE l.ativo = true
                             ORDER BY l.titulo`;
         let result = await prisma.$queryRawUnsafe(sql);
@@ -28,7 +28,7 @@ const selectAllEstoque = async function () {
 
 const selectLivrosParaEstoque = async function () {
     try {
-        let sql = `SELECT id, titulo FROM livros WHERE ativo = true ORDER BY titulo`;
+        let sql = `SELECT id, titulo FROM tbl_livros WHERE ativo = true ORDER BY titulo`;
         let result = await prisma.$queryRawUnsafe(sql);
         return result.length > 0 ? result : null;
     } catch (error) {
@@ -38,7 +38,7 @@ const selectLivrosParaEstoque = async function () {
 
 const updateEstoque = async function (quantidade, id) {
     try {
-        let sql = `UPDATE estoque SET quantidade_atual = ${quantidade} WHERE id = ${id}`;
+        let sql = `UPDATE tbl_estoque SET quantidade_atual = ${quantidade} WHERE id = ${id}`;
         let result = await prisma.$executeRawUnsafe(sql);
         return result ? true : false;
     } catch (error) {

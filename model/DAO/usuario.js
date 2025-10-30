@@ -10,7 +10,7 @@ const prisma = new PrismaClient()
 
 const loginUsuario = async function (username, password) {
     try {
-        let sql = `SELECT id, username FROM usuario WHERE username = '${username}' AND password = '${password}'`;  
+        let sql = `SELECT id, username FROM tbl_usuario WHERE username = '${username}' AND password = '${password}'`;  
         let Usuario = await prisma.$queryRawUnsafe(sql);
         return Usuario.length > 0 ? Usuario[0] : null;
     } catch (error) {

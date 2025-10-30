@@ -10,7 +10,7 @@ const prisma = new PrismaClient()
 
 const insertLivro = async function (livro) {
     try {
-        let sql = `INSERT INTO livros (
+        let sql = `INSERT INTO tbl_livros (
                                         titulo, categoria_id, isbn, ano_publicacao, autor_id, preco
                                        ) VALUES (
                                         '${livro.titulo}', 
@@ -30,8 +30,8 @@ const insertLivro = async function (livro) {
 const selectAllLivros = async function () {
     try {
         let sql = `SELECT l.id, l.titulo, c.nome as categoria, l.isbn, l.ano_publicacao 
-                   FROM livros l 
-                   LEFT JOIN categorias c ON l.categoria_id = c.id 
+                   FROM tbl_livros l 
+                   LEFT JOIN tbl_categorias c ON l.categoria_id = c.id 
                    WHERE l.ativo = true 
                    ORDER BY l.titulo`;
         let result = await prisma.$queryRawUnsafe(sql);
@@ -43,7 +43,7 @@ const selectAllLivros = async function () {
 
 const selectLivroById = async function (id) {
     try {
-        let sql = `SELECT * FROM livros WHERE id = ${id}`;
+        let sql = `SELECT * FROM tbl_livros WHERE id = ${id}`;
         let result = await prisma.$queryRawUnsafe(sql);
         return result.length > 0 ? result[0] : null;
     } catch (error) {
@@ -53,7 +53,7 @@ const selectLivroById = async function (id) {
 
 const updateLivro = async function (livro, id) {
     try {
-        let sql = `UPDATE livros SET 
+        let sql = `UPDATE tbl_livros SET 
                    titulo = '${livro.titulo}', 
                    categoria_id = ${livro.categoria_id || 1}, 
                    isbn = '${livro.isbn || ''}',
@@ -68,7 +68,7 @@ const updateLivro = async function (livro, id) {
 
 const deleteLivro = async function (id) {
     try {
-        let sql = `UPDATE livros SET ativo = false WHERE id = ${id}`;
+        let sql = `UPDATE tbl_livros SET ativo = false WHERE id = ${id}`;
         let result = await prisma.$executeRawUnsafe(sql);
         return result ? true : false;
     } catch (error) {
@@ -78,7 +78,7 @@ const deleteLivro = async function (id) {
 
 const selectAllAutores = async function () {
     try {
-        let sql = `SELECT id, nome FROM autores`;
+        let sql = `SELECT id, nome FROM tbl_autores`;
         let result = await prisma.$queryRawUnsafe(sql);
         return result.length > 0 ? result : null;
     } catch (error) {
@@ -88,7 +88,7 @@ const selectAllAutores = async function () {
 
 const selectAllCategorias = async function () {
     try {
-        let sql = `SELECT id, nome FROM categorias ORDER BY nome`;
+        let sql = `SELECT id, nome FROM tbl_categorias ORDER BY nome`;
         let result = await prisma.$queryRawUnsafe(sql);
         return result.length > 0 ? result : null;
     } catch (error) {
