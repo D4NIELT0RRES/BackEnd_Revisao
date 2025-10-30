@@ -1,10 +1,19 @@
 # 📚 LionBook - API Backend
 
-## 🚀 Como Iniciar
-```bash
-node app.js
+## 🌐 **URL do Backend (Hospedado)**
+**URL Base:** `https://backend-revisao-9qe5.onrender.com`
+
+## 🚀 Como usar no Frontend
+```javascript
+const API_BASE_URL = 'https://backend-revisao-9qe5.onrender.com'
+
+// Exemplo de uso:
+fetch(`${API_BASE_URL}/v1/login`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username: 'admin', password: '123456'})
+})
 ```
-**URL Base:** `http://localhost:8080`
 
 ---
 
@@ -41,15 +50,15 @@ POST /v1/login
 
 #### Listar todos os livros
 ```
-GET /v1/livros
+GET https://backend-revisao-9qe5.onrender.com/v1/livros
 ```
 **Retorna:** Lista com id, título, categoria, isbn, ano de publicação
 
 #### Excluir um livro
 ```
-DELETE /v1/livro/{id}
+DELETE https://backend-revisao-9qe5.onrender.com/v1/livro/{id}
 ```
-**Exemplo:** `DELETE /v1/livro/123`
+**Exemplo:** `DELETE https://backend-revisao-9qe5.onrender.com/v1/livro/123`
 
 ---
 
@@ -57,13 +66,13 @@ DELETE /v1/livro/{id}
 
 #### Buscar categorias (para dropdown)
 ```
-GET /v1/categorias
+GET https://backend-revisao-9qe5.onrender.com/v1/categorias
 ```
 **Retorna:** Lista de categorias disponíveis
 
 #### Cadastrar novo livro
 ```
-POST /v1/livro
+POST https://backend-revisao-9qe5.onrender.com/v1/livro
 ```
 **Body JSON:**
 ```json
@@ -77,12 +86,12 @@ POST /v1/livro
 
 #### Buscar livro para editar
 ```
-GET /v1/livro/{id}
+GET https://backend-revisao-9qe5.onrender.com/v1/livro/{id}
 ```
 
 #### Atualizar livro existente
 ```
-PUT /v1/livro/{id}
+PUT https://backend-revisao-9qe5.onrender.com/v1/livro/{id}
 ```
 **Body JSON:** (mesmo formato do POST)
 
@@ -92,19 +101,19 @@ PUT /v1/livro/{id}
 
 #### Buscar livros (para dropdown título)
 ```
-GET /v1/livros-estoque
+GET https://backend-revisao-9qe5.onrender.com/v1/livros-estoque
 ```
 **Retorna:** Lista de livros para seleção
 
 #### Listar estoque atual
 ```
-GET /v1/estoque
+GET https://backend-revisao-9qe5.onrender.com/v1/estoque
 ```
 **Retorna:** Lista com livro_id, título, quantidade atual
 
 #### Atualizar quantidade do estoque
 ```
-PUT /v1/estoque/{id}
+PUT https://backend-revisao-9qe5.onrender.com/v1/estoque/{id}
 ```
 **Body JSON:**
 ```json
@@ -181,6 +190,50 @@ PUT /v1/estoque/{id}
 ## 👤 **Usuário de Teste**
 - **Username:** `admin`
 - **Password:** `123456`
+
+---
+
+## 💻 **Para o Frontend**
+
+### Configuração básica:
+```javascript
+const API_BASE_URL = 'https://backend-revisao-9qe5.onrender.com'
+
+// Headers padrão para requisições
+const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+}
+```
+
+### Exemplos de uso:
+```javascript
+// Login
+const login = async (username, password) => {
+    const response = await fetch(`${API_BASE_URL}/v1/login`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ username, password })
+    })
+    return response.json()
+}
+
+// Listar livros
+const getLivros = async () => {
+    const response = await fetch(`${API_BASE_URL}/v1/livros`)
+    return response.json()
+}
+
+// Cadastrar livro
+const createLivro = async (livro) => {
+    const response = await fetch(`${API_BASE_URL}/v1/livro`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(livro)
+    })
+    return response.json()
+}
+```
 
 ---
 

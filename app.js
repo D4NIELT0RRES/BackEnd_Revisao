@@ -25,15 +25,6 @@ app.use((request, response, next) => {
 
 app.use(bodyParser.json())
 
-// Rota de health check para o Render
-app.get('/health', cors(), async function (request, response) {
-    response.status(200).json({ 
-        status: "OK", 
-        message: "LionBook API está funcionando",
-        timestamp: new Date().toISOString()
-    })
-})
-
 // LOGIN
 app.post('/v1/login', cors(), async function (request, response) {
     let { username, password } = request.body
