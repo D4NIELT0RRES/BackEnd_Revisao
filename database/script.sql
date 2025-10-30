@@ -114,3 +114,6 @@ INSERT INTO movimentacoes_estoque (livro_id, tipo_movimentacao, quantidade, moti
 -- Usuario para teste de login
 INSERT INTO usuario (username, password) VALUES
 ('admin', '123456');
+
+INSERT INTO livros (titulo, categoria_id, isbn, ano_publicacao, preco) VALUES
+('Teste do Render', 1, '978-1111111111', 2025, 19.90);
