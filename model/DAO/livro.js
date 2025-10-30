@@ -29,13 +29,14 @@ const insertLivro = async function (livro) {
 
 const selectAllLivros = async function () {
     try {
-        // Query simplificada para debug
-        let sql = `SELECT id, titulo, isbn, ano_publicacao, ativo FROM tbl_livros`;
+        let sql = `SELECT l.id, l.titulo, c.nome as categoria, l.isbn, l.ano_publicacao 
+                   FROM tbl_livros l 
+                   LEFT JOIN tbl_categorias c ON l.categoria_id = c.id 
+                   WHERE l.ativo = true 
+                   ORDER BY l.titulo`;
         let result = await prisma.$queryRawUnsafe(sql);
-        console.log('Resultado da query:', result); // Debug
         return result.length > 0 ? result : null;
     } catch (error) {
-        console.log('Erro na query:', error); // Debug
         return null;
     }
 }
