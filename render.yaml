@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: lionbook-backend
+    name: backend-revisao
     env: node
     buildCommand: npm install && npx prisma generate
     startCommand: npm start
+    healthCheckPath: /v1/livros
     envVars:
       - key: NODE_ENV
         value: production
